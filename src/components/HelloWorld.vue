@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="width: 1600px;margin: 20px auto;text-align: center;">
+    <div style="width: 1000px;margin: 20px auto;text-align: center;">
       f51:日期
       f52:开盘价
       f53:收盘价
@@ -13,7 +13,7 @@
       f60:涨跌百分比
       f61:涨跌几块钱
     </div>
-    <div style="width: 1600px;margin: 20px auto;">
+    <div style="width: 1000px;margin: 20px auto;">
       <el-form label-width="200">
         <el-form-item label="fields1">
           <el-input v-model="formData.fields1"></el-input>
@@ -42,16 +42,15 @@
       <el-button type="primary" @click="submitQuery">查询</el-button>
       <el-button type="primary" @click="opt">操作</el-button>
     </div>
-    <div style="width: 1600px;margin: 20px auto;max-height: 800px;">
+    <div style="width: 1000px;margin: 20px auto;max-height: 1000px;">
       <span>
         股票名 {{tableData.name}}
       </span>
-
     </div>
-    <el-table :data="tableData" border style="width: 1600px;margin: 20px auto;" max-height="800">
+    <el-table :data="tableData" border style="width: 1000px;margin: 20px auto;" max-height="800">
       <el-table-column v-for="(item, index) in tableProp" :prop="item.prop" :label="item.label"></el-table-column>
     </el-table>
-    <div style="width: 1600px;margin: 20px auto;max-height: 800px;">
+    <div style="width: 1000px;margin: 20px auto;max-height: 1000px;">
       <span>
         买入跌幅 {{ tableData.buyInRate }}%
       </span>
@@ -68,10 +67,10 @@
         总最小收益率 {{ tableData2.total2 }}%
       </span>
     </div>
-    <el-table :data="tableData2" border style="width: 1600px;margin: 20px auto;" max-height="800">
+    <el-table :data="tableData2" border style="width: 1000px;margin: 20px auto;" max-height="800">
       <el-table-column v-for="(item, index) in tableProp2" :prop="item.prop" :label="item.label" :formatter="item.formatter"></el-table-column>
     </el-table>
-    <el-table :data="tableData3" border style="width: 1600px;margin: 20px auto;" max-height="800">
+    <el-table :data="tableData3" border style="width: 1000px;margin: 20px auto;" max-height="800">
       <el-table-column v-for="(item, index) in tableProp3" :prop="item.prop" :label="item.label" :formatter="item.formatter" sortable></el-table-column>
     </el-table>
   </div>
@@ -91,12 +90,7 @@
     end: '20240820'
   })
 
-  // const secidList = ['0.000429', '0.002668', '1.600887', '1.601216', '0.002508', '1.601607']
-  // 公路铁路运输
-  const secidList = [
-    '1.600020', '1.600035', '1.600368', '1.600269', '1.600033', '1.601518', '1.601006', '1.601107', '0.002357', '0.000900', '1.600377', '0.000828', '1.600350',
-    '0.000429', '1.600125', '1.601333', '0.000755', '1.600548', '0.001965', '1.600012'
-  ]
+  const secidList = ['0.002884']
 
   const tableProp = [
     {
@@ -213,6 +207,7 @@
   const tableData2 = ref([])
   const tableData3 = ref([])
   const submitQuery = () => {
+    tableData3.value = []
       secidList.forEach(secid => {
         formData.value.secid = secid
         axios.get('http://push2his.eastmoney.com/api/qt/stock/kline/get', {
